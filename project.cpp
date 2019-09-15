@@ -515,9 +515,7 @@ void readFromPaxFile() {
 	fin.open(paxFileName,ios::in|ios::binary);
 	if(fin.is_open()){
 
-		while(!fin.eof()){
-
-			fin.read((char *)&passenger,sizeof(Passenger));
+		while(fin.read((char *)&passenger,sizeof(Passenger))){
 			passenger.putPassengerData();
 			cout<<"\nTesting here"<<fin.tellg();
 	}
