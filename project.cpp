@@ -5,9 +5,11 @@
 
 using namespace std;
 
+class Passenger;
 
 void menu();
 void writeToPaxFile(Passenger);
+void readFromPaxFile();
 string paxFileName = "paxfile.dat";
 
 enum RouteType {
@@ -351,8 +353,8 @@ void userMenu() {
 	while((_ch=getchar())!='\n');
 	Passenger passenger;
 	switch(ch){
-		case 1:passenger.getPassengerData(),userMenu();break;
-		case 2:passenger.putPassengerData(),userMenu();break;
+		case 1:passenger.getPassengerData(),writeToPaxFile(passenger),userMenu();break;
+		case 2:readFromPaxFile(),userMenu();break;
 		case 3:menu();break;
 		default:cout<<"\nWrong choice",userMenu();break;
 	}
@@ -373,7 +375,26 @@ void menu() {
 
 
 void writeToPaxFile(Passenger passenger){
+	ofstream fout;
+	fout.open(paxFileName,ios::binary|ios::app);
+	if(fout.is_open()){
+		fout.write((char *)&passenger,sizeof(Passenger));
+		cout<<"\nWrite to file successfull:";
+	} else {
+		cout<<"\nWrite failed:";
+	}
+}
 
+void readFromPaxFile() {
+	Passenger passenger;
+	ifstream fin;
+	fin.open(paxFileName,ios::binary);
+	if(fin.is_open()){
+		fin.read((char *)&passenger,sizeof(Passenger));
+		passenger.putPassengerData();
+	} else{
+		cout<<"\nBad filename";
+	}
 }
 
 int main() {
