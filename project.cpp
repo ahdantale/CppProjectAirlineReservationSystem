@@ -5,12 +5,31 @@
 
 using namespace std;
 
+//Forward Class declarations
 class Passenger;
+class Airline;
+class Route1;
+class Route2;
+class Route3;
+class Planes;
 
+//Function prototypes
 void menu();
 void writeToPaxFile(Passenger);
 void readFromPaxFile();
+void writeToAdminFiles();
+void showRoutes();
+
+//Global filenames
 string paxFileName = "paxfile.dat";
+string adminFileName1 = "adminfile1.dat";
+string adminFileName2 = "adminfile2.dat";
+string adminFileName3 = "adminfile3.dat";
+
+
+
+
+
 
 enum RouteType {
 	longRoute,shortRoute
@@ -167,6 +186,7 @@ class Route1:B737,A320,AirIndia {
 	vector<string> routeNos;
 	vector<string> routeToFrom;
 	vector<int> ticketsAvailable;
+	vector<int> ticketsBooked;
 
 	public:
 
@@ -181,6 +201,7 @@ class Route1:B737,A320,AirIndia {
 			routeNos.resize(noOfRoutesServed);
 			routeToFrom.resize(noOfRoutesServed);
 			ticketsAvailable.resize(noOfRoutesServed);
+			ticketsBooked.assign(noOfRoutesServed,0);
 
 			for(int i=0;i<noOfRoutesServed;i++) {
 				cout<<"\nEnter the route Number : ";getline(cin,routeNos[i]);
@@ -202,11 +223,34 @@ class Route1:B737,A320,AirIndia {
 				cout<<"\n"<<routeNos[i]<<"\t"<<routeToFrom[i]<<"\t"<<ticketsAvailable[i];
 			}
 		}
+
+		bool findBooking(string route){
+			int loc;
+
+			for(int i=0;i<noOfRoutesServed;i++) {
+				if(route == routeToFrom[i]){
+					loc = i;
+					break;
+				}
+			}
+
+			if(ticketsAvailable[loc]>ticketsBooked[loc]){
+				ticketsBooked[loc]++;
+				cout<<"\nTicket booked successfully";
+				return(true);
+			} else {
+				cout<<"\nTicket could not be booked : ";
+				return(false);
+			}
+
+		}
 };
 
 class Route2:B737,A320,Indigo {
 	vector<string> routeNos;
 	vector<string> routeToFrom;
+	vector<int> ticketsAvailable;
+	vector<int> ticketsBooked;
 
 public:
 
@@ -220,10 +264,15 @@ public:
 		while((ch=getchar())!='\n');
 		routeNos.resize(noOfRoutesServed);
 		routeToFrom.resize(noOfRoutesServed);
+		ticketsAvailable.resize(noOfRoutesServed);
+		ticketsBooked.assign(noOfRoutesServed,0);
 
 		for(int i=0;i<noOfRoutesServed;i++) {
-			getline(cin,routeNos[i]);
-			getline(cin,routeToFrom[i]);
+			cout<<"\nEnter the route Number : ";getline(cin,routeNos[i]);
+			cout<<"\nEnter the route path : ";getline(cin,routeToFrom[i]);
+			cout<<"\nEnter the total number of tickets available for this route : ";cin>>ticketsAvailable[i];
+			char ch;
+			while((ch=getchar())!='\n');
 		}
 	}
 
@@ -233,16 +282,37 @@ public:
 		cout<<"\nThe Airline data is : ";
 		Indigo::putBasicData();
 		cout<<"\nThe data of the routes is : ";
-		cout<<"\nRoute Number\tRoutle Name :: ";
+		cout<<"\nRoute Number\tRoutle Name\tTickets Available :: ";
 		for(int i=0;i<noOfRoutesServed;i++){
-			cout<<"\n"<<routeNos[i]<<"\t"<<routeToFrom[i];
+			cout<<"\n"<<routeNos[i]<<"\t"<<routeToFrom[i]<<"\t"<<ticketsAvailable[i];
 		}
+	}
+
+	bool findBooking(string route){
+		int loc;
+
+		for(int i=0;i<noOfRoutesServed;i++) {
+			if(route == routeToFrom[i]){
+				loc = i;
+				break;
+			}
+		}
+
+		if(ticketsAvailable[loc]>ticketsBooked[loc]){
+			ticketsBooked[loc]++;
+			return(true);
+		} else {
+			return(false);
+		}
+
 	}
 };
 
 class Route3:B737,A320,Vistara {
 	vector<string> routeNos;
 	vector<string> routeToFrom;
+	vector<int> ticketsAvailable;
+	vector<int> ticketsBooked;
 
 	public:
 	Route3() {
@@ -255,10 +325,15 @@ class Route3:B737,A320,Vistara {
 		while((ch=getchar())!='\n');
 		routeNos.resize(noOfRoutesServed);
 		routeToFrom.resize(noOfRoutesServed);
-		cout<<"\nEnter the route Data : ";
+		ticketsAvailable.resize(noOfRoutesServed);
+		ticketsBooked.assign(noOfRoutesServed,0);
+
 		for(int i=0;i<noOfRoutesServed;i++) {
-			getline(cin,routeNos[i]);
-			getline(cin,routeToFrom[i]);
+			cout<<"\nEnter the route Number : ";getline(cin,routeNos[i]);
+			cout<<"\nEnter the route path : ";getline(cin,routeToFrom[i]);
+			cout<<"\nEnter the total number of tickets available for this route : ";cin>>ticketsAvailable[i];
+			char ch;
+			while((ch=getchar())!='\n');
 		}
 	}
 
@@ -268,21 +343,57 @@ class Route3:B737,A320,Vistara {
 		cout<<"\nThe Airline data is : ";
 		Vistara::putBasicData();
 		cout<<"\nThe data of the routes is : ";
-		cout<<"\nRoute Number\tRoutle Name :: ";
+		cout<<"\nRoute Number\tRoutle Name\tTickets Available :: ";
 		for(int i=0;i<noOfRoutesServed;i++){
-			cout<<"\n"<<i+1<<"\n"<<routeNos[i]<<"\t"<<routeToFrom[i];
+			cout<<"\n"<<routeNos[i]<<"\t"<<routeToFrom[i]<<"\t"<<ticketsAvailable[i];
 		}
 	}
+
+	bool findBooking(string route){
+		int loc;
+
+		for(int i=0;i<noOfRoutesServed;i++) {
+			if(route == routeToFrom[i]){
+				loc = i;
+				break;
+			}
+		}
+
+		if(ticketsAvailable[loc]>ticketsBooked[loc]){
+			ticketsBooked[loc]++;
+			return(true);
+		} else {
+			return(false);
+		}
+
+	}
 };
+
+//Global Objects
+Route1 route1;
+Route2 route2;
+Route3 route3;
 
 class Passenger {
 	string name;
 	int age;
-	bool ticketBooked;
 	string routeBooked;
 	string uid;
 
 public:
+	bool ticketBooked;
+
+	Passenger(){
+
+	}
+
+	Passenger(Passenger &passenger){
+		name=passenger.name;
+		age=passenger.age;
+		routeBooked=passenger.routeBooked;
+		uid=passenger.uid;
+		ticketBooked=passenger.ticketBooked;
+	}
 
 	void getPassengerData() {
 		cout<<"\nEnter your name : ";
@@ -297,7 +408,7 @@ public:
 		cout<<"\nEnter the unique id you have been issued by the GoI : ";
 		getline(cin,uid);
 		routeBooked = neededRoute;
-
+		bookTicket();
 	}
 
 	void putPassengerData() {
@@ -308,40 +419,50 @@ public:
 		cout<<"\nPassenger travel route : "<<routeBooked;
 		cout<<"\nUnique Id : "<<uid<<endl;
 	}
+
+	void bookTicket() {
+		cout<<"\nEnter the airline you want to book with \nBased on the data of the routes and airlines below : \n\n";
+		showRoutes();
+		string airline;
+		getline(cin,airline);
+
+		if(airline == "AirIndia"){
+			ticketBooked = route1.findBooking(routeBooked);
+		} else if (airline == "Indigo") {
+			ticketBooked = route2.findBooking(routeBooked);
+		} else if (airline == "Vistara") {
+			ticketBooked = route3.findBooking(routeBooked);
+		} else {
+			cout<<"\nSorry this airline is not found in this universe ";
+		}
+
+	}
 };
 
-//Route1 route1;
-// Route2 route2;
-// Route3 route3;
 
-void adminMenu(){
-	// cout<<"\nWhich airline's data you want to access : ";
-	// cout<<"\n1.AirIndia\n2.Indigo\n3.Vistara";
-	// int ch;
-	// cin>>ch;
-	// char _ch;
-	// while((_ch=getchar())!='\n');
-	// switch(ch){
-	// 	case 1: route1.getBasicData();break;
-	// 	case 2: route2.getBasicData();break;
-	// 	case 3: route3.getBasicData();break;
-	// 	default:cout<<"\nWrong Choice : ",adminMenu();break;
-	// }
-}
 
-void adminSeeDataMenu() {
+
+void showRoutes() {
+		cout<<"\nThe route and aircraft details for the airlines are : ";
+		route1.putData(),route2.putData(),route3.putData();
+	}
+
+
+
+void adminMenu() {
 	cout<<"\nWhich airline's data you want to access : ";
-	cout<<"\n1.AirIndia\n2.Indigo\n3.Vistara";
+	cout<<"\n1.AirIndia\n2.Indigo\n3.Vistara\n4.Exit";
 	int ch;
 	cin>>ch;
 	char _ch;
 	while((_ch=getchar())!='\n');
 
 	switch(ch){
-		//case 1:route1.putData();break;
-		// case 2:route2.putData();break;
-		// case 3:route3.putData();break;
-		default:cout<<"\nWrong choice",adminSeeDataMenu();break;
+		case 1:route1.putData();break;
+		case 2:route2.putData();break;
+		case 3:route3.putData();break;
+		case 4:break;
+		default:cout<<"\nWrong choice",adminMenu();break;
 	}
 }
 
@@ -361,13 +482,12 @@ void userMenu() {
 }
 
 void menu() {
-	cout<<"\n1.ADMIN MAKE CHANGE MENU"<<"\n2.USER MENU"<<"\n3.ADMIN SEE DATA MENU\n4.Exit";
+	cout<<"\n1.ADMIN MAKE CHANGE MENU"<<"\n2.USER MENU"<<"\n4.Exit";
 	int ch;
 	cin>>ch;
 	switch(ch){
 		case 1:adminMenu();break;
 		case 2:userMenu();break;
-		case 3:adminSeeDataMenu();break;
 		case 4:break;
 		default:cout<<"\nWrong choice",menu();break;
 	}
@@ -375,29 +495,59 @@ void menu() {
 
 
 void writeToPaxFile(Passenger passenger){
-	ofstream fout;
-	fout.open(paxFileName,ios::binary|ios::app);
-	if(fout.is_open()){
-		fout.write((char *)&passenger,sizeof(Passenger));
-		cout<<"\nWrite to file successfull:";
-	} else {
-		cout<<"\nWrite failed:";
-	}
+		if(passenger.ticketBooked){
+				ofstream fout;
+				fout.open(paxFileName,ios::binary|ios::app);
+						if(fout.is_open()){
+							fout.write((char *)&passenger,sizeof(Passenger));
+							cout<<"\nWrite to file successfull:";
+						} else {
+							cout<<"\nWrite failed:";
+						}
+		} else {
+			cout<<"\nTicket Not Booked For This PAX"<<endl;
+		}
 }
 
 void readFromPaxFile() {
 	Passenger passenger;
 	ifstream fin;
-	fin.open(paxFileName,ios::binary);
+	fin.open(paxFileName,ios::in|ios::binary);
 	if(fin.is_open()){
-		fin.read((char *)&passenger,sizeof(Passenger));
-		passenger.putPassengerData();
-	} else{
-		cout<<"\nBad filename";
+
+		while(!fin.eof()){
+
+			fin.read((char *)&passenger,sizeof(Passenger));
+			passenger.putPassengerData();
+			cout<<"\nTesting here"<<fin.tellg();
 	}
+ } else{
+	 cout<<"\nBad filename";
+ }
+ 	fin.close();
+}
+
+void writeToAdminFiles(){
+	ofstream fout;
+	fout.open(adminFileName1,ios::app|ios::binary);
+	fout.write((char *)&route1,sizeof(Route1));
+	fout.close();
+	fout.open(adminFileName2,ios::app|ios::binary);
+	fout.write((char *)&route2,sizeof(Route2));
+	fout.close();
+	fout.open(adminFileName3,ios::app|ios::binary);
+	fout.write((char *)&route3,sizeof(Route3));
+	fout.close();
 }
 
 int main() {
+	cout<<sizeof(Passenger);
+	ifstream fin(paxFileName,ios::binary);
+	fin.seekg(0,fin.end);
+	long filesize = fin.tellg();
+	cout<<"\n"<<filesize;
+	fin.close();
+	writeToAdminFiles();
 	menu();
 
 	return(0);
