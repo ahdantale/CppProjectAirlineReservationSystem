@@ -27,6 +27,7 @@ class Planes {
 
 
 class AirIndia : public Airline {
+ protected:
 	string name;
 	int noOfRoutesServed;
 
@@ -46,6 +47,7 @@ class AirIndia : public Airline {
 };
 
 class Indigo : public Airline {
+	protected:
 	string name;
 	int noOfRoutesServed;
 
@@ -65,6 +67,7 @@ class Indigo : public Airline {
 };
 
 class Vistara : public Airline {
+	protected:
 	string name;
 	int noOfRoutesServed;
 
@@ -75,6 +78,7 @@ class Vistara : public Airline {
 		getline(cin,name);
 		cout<<"\nEnter the no. of routes served by the airline : ";
 		cin>>noOfRoutesServed;
+
 	}
 
 	void putBasicData() {
@@ -85,6 +89,8 @@ class Vistara : public Airline {
 };
 
 class A320 : public Planes {
+
+ protected:
 	int noOfSeats;
 	RouteType routeType;
 
@@ -101,6 +107,7 @@ class A320 : public Planes {
 		} else {
 			routeType = shortRoute;
 		}
+
 	}
 
 	void putBasicData() {
@@ -117,6 +124,8 @@ class A320 : public Planes {
 };
 
 class B737 : public Planes {
+	protected:
+
 	int noOfSeats;
 	RouteType routeType;
 
@@ -133,10 +142,11 @@ class B737 : public Planes {
 		} else {
 			routeType = shortRoute;
 		}
+
 	}
 
 	void putBasicData() {
-		cout<<"\nThe seats available on the B737 are : ";
+		cout<<"\nThe seats available on the B737 are :  ";
 		cout<<noOfSeats;
 		cout<<"\nThe type of route of the B737 is : ";
 		if (routeType == longRoute) {
@@ -148,14 +158,118 @@ class B737 : public Planes {
 	}
 };
 
+class Route1:B737,A320,AirIndia {
+	vector<string> routeNos;
+	vector<string> routeToFrom;
+
+	public:
+
+		Route1() {
+			B737::getBasicData();
+
+			A320::getBasicData();
+			char ch;
+			while((ch=getchar())!='\n');
+			AirIndia::getBasicData();
+			while((ch=getchar())!='\n');
+			routeNos.resize(noOfRoutesServed);
+			routeToFrom.resize(noOfRoutesServed);
+
+			for(int i=0;i<noOfRoutesServed;i++) {
+				getline(cin,routeNos[i]);
+				getline(cin,routeToFrom[i]);
+			}
+		}
+
+		void putData(){
+			cout<<"\nThe type of aircraft and its details are : ";
+			B737::putBasicData(),A320::putBasicData();
+			cout<<"\nThe Airline data is : ";
+			AirIndia::putBasicData();
+			cout<<"\nThe data of the routes is : ";
+			cout<<"\nRoute Number\tRoutle Name :: ";
+			for(int i=0;i<noOfRoutesServed;i++){
+				cout<<"\n"<<routeNos[i]<<"\t"<<routeToFrom[i];
+			}
+		}
+};
+
+class Route2:B737,A320,Indigo {
+	vector<string> routeNos;
+	vector<string> routeToFrom;
+
+public:
+
+	Route2() {
+		B737::getBasicData();
+
+		A320::getBasicData();
+		char ch;
+		while((ch=getchar())!='\n');
+		Indigo::getBasicData();
+		while((ch=getchar())!='\n');
+		routeNos.resize(noOfRoutesServed);
+		routeToFrom.resize(noOfRoutesServed);
+
+		for(int i=0;i<noOfRoutesServed;i++) {
+			getline(cin,routeNos[i]);
+			getline(cin,routeToFrom[i]);
+		}
+	}
+
+	void putData(){
+		cout<<"\nThe type of aircraft and its details are : ";
+		B737::putBasicData(),A320::putBasicData();
+		cout<<"\nThe Airline data is : ";
+		Indigo::putBasicData();
+		cout<<"\nThe data of the routes is : ";
+		cout<<"\nRoute Number\tRoutle Name :: ";
+		for(int i=0;i<noOfRoutesServed;i++){
+			cout<<"\n"<<routeNos[i]<<"\t"<<routeToFrom[i];
+		}
+	}
+};
+
+class Route3:B737,A320,Vistara {
+	vector<string> routeNos;
+	vector<string> routeToFrom;
+
+	public:
+	Route3() {
+		B737::getBasicData();
+
+		A320::getBasicData();
+		char ch;
+		while((ch=getchar())!='\n');
+		Vistara::getBasicData();
+		while((ch=getchar())!='\n');
+		routeNos.resize(noOfRoutesServed);
+		routeToFrom.resize(noOfRoutesServed);
+		cout<<"\nEnter the route Data : ";
+		for(int i=0;i<noOfRoutesServed;i++) {
+			getline(cin,routeNos[i]);
+			getline(cin,routeToFrom[i]);
+		}
+	}
+
+	void putData(){
+		cout<<"\nThe type of aircraft and its details are : ";
+		B737::putBasicData(),A320::putBasicData();
+		cout<<"\nThe Airline data is : ";
+		Vistara::putBasicData();
+		cout<<"\nThe data of the routes is : ";
+		cout<<"\nRoute Number\tRoutle Name :: ";
+		for(int i=0;i<noOfRoutesServed;i++){
+			cout<<"\n"<<i+1<<"\n"<<routeNos[i]<<"\t"<<routeToFrom[i];
+		}
+	}
+};
+
 
 int main() {
-	Vistara test;
-	A320 testing;
-	test.getBasicData();
-	test.putBasicData();
-	testing.getBasicData();
-	testing.putBasicData();
+	Route2 route;
+	route.putData();
+
 	return(0);
 
 
