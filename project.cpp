@@ -423,7 +423,7 @@ public:
 		cout<<"\nName of the passenger : ";
 		cout<<name;
 		cout<<"\nAge of the passenger : ";
-		cout<<"age";
+		cout<<age;
 		cout<<"\nPassenger travel route : "<<routeBooked;
 		cout<<"\nUnique Id : "<<uid<<endl;
 	}
