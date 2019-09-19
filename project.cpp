@@ -26,16 +26,12 @@ string adminFileName1 = "adminfile1.dat";
 string adminFileName2 = "adminfile2.dat";
 string adminFileName3 = "adminfile3.dat";
 
-
-
-
-
-
+//Enumeration to show the route type
 enum RouteType {
 	longRoute,shortRoute
 };
 
-
+//Airline Abstract Class
 class Airline {
 	public:
 
@@ -43,13 +39,14 @@ class Airline {
 	virtual void putBasicData() = 0;
 };
 
+//Planes Abstract Class
 class Planes {
 	public:
 
 	virtual void getBasicData() = 0;
 };
 
-
+//AirIndia Class
 class AirIndia : public Airline {
  protected:
 	string name;
@@ -70,6 +67,7 @@ class AirIndia : public Airline {
 	}
 };
 
+//Indigo Class
 class Indigo : public Airline {
 	protected:
 	string name;
@@ -90,6 +88,7 @@ class Indigo : public Airline {
 	}
 };
 
+//Vistara Class
 class Vistara : public Airline {
 	protected:
 	string name;
@@ -112,6 +111,7 @@ class Vistara : public Airline {
 	}
 };
 
+//A320 Class
 class A320 : public Planes {
 
  protected:
@@ -147,6 +147,7 @@ class A320 : public Planes {
 
 };
 
+//B737 Class
 class B737 : public Planes {
 	protected:
 
@@ -182,6 +183,7 @@ class B737 : public Planes {
 	}
 };
 
+//Route 1 Class for AirIndia Airline
 class Route1:B737,A320,AirIndia {
 	vector<string> routeNos;
 	vector<string> routeToFrom;
@@ -191,6 +193,7 @@ class Route1:B737,A320,AirIndia {
 	public:
 
 		Route1() {
+			cout<<"\nAirline ::::: AirIndia"
 			B737::getBasicData();
 
 			A320::getBasicData();
@@ -246,6 +249,7 @@ class Route1:B737,A320,AirIndia {
 		}
 };
 
+//Route Class for indigo airline
 class Route2:B737,A320,Indigo {
 	vector<string> routeNos;
 	vector<string> routeToFrom;
@@ -255,6 +259,7 @@ class Route2:B737,A320,Indigo {
 public:
 
 	Route2() {
+		cout<<"\nAirline :::::::: Indigo";
 		B737::getBasicData();
 
 		A320::getBasicData();
@@ -308,6 +313,7 @@ public:
 	}
 };
 
+//Route class for Vistara airline
 class Route3:B737,A320,Vistara {
 	vector<string> routeNos;
 	vector<string> routeToFrom;
@@ -316,6 +322,7 @@ class Route3:B737,A320,Vistara {
 
 	public:
 	Route3() {
+		cout<<"\nAirline :::::: Vistara";
 		B737::getBasicData();
 
 		A320::getBasicData();
@@ -374,6 +381,7 @@ Route1 route1;
 Route2 route2;
 Route3 route3;
 
+//Passenger Class
 class Passenger {
 	string name;
 	int age;
@@ -437,18 +445,22 @@ public:
 		}
 
 	}
+
+	string getUID() {
+		return(uid);
+	}
 };
 
 
 
-
+//Function to show for airlines so that the passenger can book according to the
+//routes thar are already in place
 void showRoutes() {
 		cout<<"\nThe route and aircraft details for the airlines are : ";
 		route1.putData(),route2.putData(),route3.putData();
 	}
 
-
-
+//Airline Admin menu
 void adminMenu() {
 	cout<<"\nWhich airline's data you want to access : ";
 	cout<<"\n1.AirIndia\n2.Indigo\n3.Vistara\n4.Exit";
@@ -466,6 +478,7 @@ void adminMenu() {
 	}
 }
 
+//User menu to view different details
 void userMenu() {
 	cout<<"\n1.Book Ticket"<<"\n2.View Ticket Details\n3.Exit";
 	int ch;
@@ -481,6 +494,7 @@ void userMenu() {
 	}
 }
 
+//Menu to access different menus
 void menu() {
 	cout<<"\n1.ADMIN MAKE CHANGE MENU"<<"\n2.USER MENU"<<"\n4.Exit";
 	int ch;
@@ -493,7 +507,7 @@ void menu() {
 	}
 }
 
-
+//Writing passenger data to a file
 void writeToPaxFile(Passenger passenger){
 		if(passenger.ticketBooked){
 				ofstream fout;
@@ -509,15 +523,24 @@ void writeToPaxFile(Passenger passenger){
 		}
 }
 
+//Reading from the passenger file
 void readFromPaxFile() {
+	string uid;
 	Passenger passenger;
 	ifstream fin;
+	cout<<"\nEnter the uid you provided for ticket reservation : ";
+	getline(cin,uid);
 	fin.open(paxFileName,ios::in|ios::binary);
 	if(fin.is_open()){
 
 		while(fin.read((char *)&passenger,sizeof(Passenger))){
+
+			if(passenger.getUID()==uid) {
 			passenger.putPassengerData();
 			cout<<"\nTesting here"<<fin.tellg();
+		} else {
+			cout<<"\nNo matching data found for this uid";
+		}
 	}
  } else{
 	 cout<<"\nBad filename";
@@ -525,6 +548,7 @@ void readFromPaxFile() {
  	fin.close();
 }
 
+//Writing to admin files for airline data
 void writeToAdminFiles(){
 	ofstream fout;
 	fout.open(adminFileName1,ios::app|ios::binary);
@@ -538,13 +562,9 @@ void writeToAdminFiles(){
 	fout.close();
 }
 
+//Main function
 int main() {
-	cout<<sizeof(Passenger);
-	ifstream fin(paxFileName,ios::binary);
-	fin.seekg(0,fin.end);
-	long filesize = fin.tellg();
-	cout<<"\n"<<filesize;
-	fin.close();
+
 	writeToAdminFiles();
 	menu();
 
