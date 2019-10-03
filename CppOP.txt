@@ -1,0 +1,150 @@
+Abhisheks-MacBook-Pro:CppProject abhishekdantale$ g++ -o new project.cpp
+Abhisheks-MacBook-Pro:CppProject abhishekdantale$ ./new
+
+Abhisheks-MacBook-Pro:CppProject abhishekdantale$ ./new
+
+Airline ::::: AirIndia
+Enter the no. of seats availbale on the B737 : 12
+
+Enter the type of route : 1
+
+Enter the no. of seats availbale on the A320 : 12
+
+Enter the type of route : 0
+
+Enter the name of the airline : AirIndia
+
+Enter the no. of routes served by the airline : 2
+
+Enter the route Number : A1
+
+Enter the route path : LHRLAX
+
+Enter the total number of tickets available for this route : 2
+
+Enter the route Number : 12
+
+Enter the route path : DELNAG
+
+Enter the total number of tickets available for this route : 1
+
+Airline :::::::: Indigo
+Enter the no. of seats availbale on the B737 : 0
+
+Enter the type of route : 0
+
+Enter the no. of seats availbale on the A320 : 0
+
+Enter the type of route : 0
+
+Enter the name of the airline : Indigo
+
+Enter the no. of routes served by the airline : 0
+
+Airline :::::: Vistara
+Enter the no. of seats availbale on the B737 : 13
+
+Enter the type of route : 1
+
+Enter the no. of seats availbale on the A320 : 15
+
+Enter the type of route : 1
+
+Enter the name of the airline : Vistara
+
+Enter the no. of routes served by the airline : 2
+
+Enter the route Number : A2
+
+Enter the route path : LHRLAX
+
+Enter the total number of tickets available for this route : 2
+
+Enter the route Number : A3
+
+Enter the route path : BLRBOM
+
+Enter the total number of tickets available for this route : 1
+
+1.ADMIN MAKE CHANGE MENU
+2.USER MENU
+4.Exit2
+
+1.Book Ticket
+2.View Ticket Details
+3.Exit1
+
+Enter your name : Saurabh Khaparey Legend
+
+Enter your age : 900
+
+Enter the route you want the ticket for : LHRLAX
+
+Enter the unique id you have been issued by the GoI : 678
+
+Enter the airline you want to book with 
+Based on the data of the routes and airlines below : 
+
+
+The route and aircraft details for the airlines are : 
+The type of aircraft and its details are : 
+The seats available on the B737 are :  12
+The type of route of the B737 is : Short Route
+The seats available on the A320 are : 12
+The type of route of the A320 is : 0
+The Airline data is : 
+The name of the airline is : AirIndia
+The no. of routes served by the airline are : 2
+
+The data of the routes is : 
+Route Number	Routle Name	Tickets Available :: 
+A1	LHRLAX	2
+12	DELNAG	1
+The type of aircraft and its details are : 
+The seats available on the B737 are :  0
+The type of route of the B737 is : Long Route
+The seats available on the A320 are : 0
+The type of route of the A320 is : 0
+The Airline data is : 
+The name of the airline is : Indigo
+The no. of routes served by the airline are : 0
+
+The data of the routes is : 
+Route Number	Routle Name	Tickets Available :: 
+The type of aircraft and its details are : 
+The seats available on the B737 are :  13
+The type of route of the B737 is : Short Route
+The seats available on the A320 are : 15
+The type of route of the A320 is : Short Route
+The Airline data is : 
+The name of the airline is : Vistara
+The no. of routes served by the airline are : 2
+
+The data of the routes is : 
+Route Number	Routle Name	Tickets Available :: 
+A2	LHRLAX	2
+A3	BLRBOM	1Vistara
+
+Write to file successfull:
+1.Book Ticket
+2.View Ticket Details
+3.Exit2
+
+Enter the uid you provided for ticket reservation : 678
+
+No matching data found for this uid
+No matching data found for this uid
+No matching data found for this uid
+Name of the passenger : Saurabh Khaparey Legend
+Age of the passenger : 900
+Passenger travel route : LHRLAX
+Unique Id : 678
+
+Testing here352
+1.Book Ticket
+2.View Ticket Details
+3.Exit3
+
+1.ADMIN MAKE CHANGE MENU
+2.USER MENU
+4.Exit4

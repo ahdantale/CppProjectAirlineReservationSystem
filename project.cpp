@@ -193,7 +193,7 @@ class Route1:B737,A320,AirIndia {
 	public:
 
 		Route1() {
-			cout<<"\nAirline ::::: AirIndia"
+			cout<<"\nAirline ::::: AirIndia";
 			B737::getBasicData();
 
 			A320::getBasicData();
@@ -538,9 +538,10 @@ void readFromPaxFile() {
 			if(passenger.getUID()==uid) {
 			passenger.putPassengerData();
 			cout<<"\nTesting here"<<fin.tellg();
-		} else {
-			cout<<"\nNo matching data found for this uid";
-		}
+		 } 
+		//else {
+		// 	cout<<"\nNo matching data found for this uid";
+		// }
 	}
  } else{
 	 cout<<"\nBad filename";
